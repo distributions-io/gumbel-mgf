@@ -2,10 +2,10 @@ using Distributions
 using JSON
 
 mu = 0
-beta = 1
+beta = 0.8
 d = Gumbel( mu,beta )
 
-x = linspace( 1, 0, 25 )
+x = linspace( 0, 25, 50 )
 
 dmgf(t) = mgf(d, t )
 y = map( dmgf, x )

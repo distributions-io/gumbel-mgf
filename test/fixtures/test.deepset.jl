@@ -1,11 +1,11 @@
 using Distributions
 using JSON
 
-mu = 0
+mu = 0.5
 beta = 1
 d = Gumbel( mu,beta )
 
-x = linspace( .5, -100, 100 )
+x = linspace( -100, 100, 400 )
 
 dmgf(t) = mgf(d, t )
 y = map( dmgf, x )

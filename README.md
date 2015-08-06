@@ -7,8 +7,8 @@ Moment-Generating Function
 The [moment-generating function](https://en.wikipedia.org/wiki/Moment-generating_function) for a [Gumbel](https://en.wikipedia.org/wiki/Gumbel_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="
-    M_X(t) := \mathbb{E}\!\left[e^{tX}\right]" data-equation="eq:mgf_function">
-	<img src="" alt="Moment-generating function (MGF) for a Gumbel distribution.">
+    M_X(t) := \mathbb{E}\!\left[e^{tX}\right] =  	\Gamma(1+\beta\,t)\, e^{\mu\,t}" data-equation="eq:mgf_function">
+	<img src="https://cdn.rawgit.com/distributions-io/gumbel-mgf/617fdbe59b24b33c08b9a8cc6507576941d05869/docs/img/eqn.svg" alt="Moment-generating function (MGF) for a Gumbel distribution.">
 	<br>
 </div>
 

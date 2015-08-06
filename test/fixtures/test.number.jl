@@ -1,8 +1,8 @@
 using Distributions
 using JSON
 
-mu = 0
-beta = 1
+mu = 3
+beta = 1.4
 d = Gumbel( mu,beta )
 
 x = [ -5, -2.5, 0, 2.5, 5 ]
