@@ -7,7 +7,7 @@ Moment-Generating Function
 The [moment-generating function](https://en.wikipedia.org/wiki/Moment-generating_function) for a [Gumbel](https://en.wikipedia.org/wiki/Gumbel_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="
-    M_X(t) := \mathbb{E}\!\left[e^{tX}\right] =  	\Gamma(1+\beta\,t)\, e^{\mu\,t}" data-equation="eq:mgf_function">
+	M_X(t) := \mathbb{E}\!\left[e^{tX}\right] =  	\Gamma(1+\beta\,t)\, e^{\mu\,t}" data-equation="eq:mgf_function">
 	<img src="https://cdn.rawgit.com/distributions-io/gumbel-mgf/617fdbe59b24b33c08b9a8cc6507576941d05869/docs/img/eqn.svg" alt="Moment-generating function (MGF) for a Gumbel distribution.">
 	<br>
 </div>
@@ -41,18 +41,18 @@ var matrix = require( 'dstructs-matrix' ),
 	i;
 
 out = mgf( 1 );
-// returns
+// returns ~1
 
 out = mgf( -1 );
-// returns 0
+// returns +Infinity
 
 t = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 out = mgf( t );
-// returns [...]
+// returns [ ~1, ~0.886, ~1, ~1.329, ~2, ~3.323 ]
 
 t = new Int8Array( t );
 out = mgf( t );
-// returns Float64Array( [...] )
+// returns Float64Array( [~1,~1,~1,~1,~2,~2] )
 
 t = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
@@ -67,9 +67,9 @@ mat = matrix( t, [3,2], 'float32' );
 
 out = mgf( mat );
 /*
-	[
-
-	   ]
+	[ ~1 ~0.886
+	  ~1 ~1.329
+	  ~2 ~3.323]
 */
 ```
 
@@ -89,10 +89,10 @@ A [Gumbel](https://en.wikipedia.org/wiki/Gumbel_distribution) distribution is a 
 var t = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 
 var out = mgf( t, {
-	'mu': 9,
-	'beta': 4
+	'mu': 0.5,
+	'beta': 0.9
 });
-// returns [...]
+// returns [ ~1, ~1.137, ~1.586, ~2.547, ~4.557, ~8.898 ]
 ```
 
 For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
@@ -114,7 +114,7 @@ function getValue( d, i ) {
 var out = mgf( data, {
 	'accessor': getValue
 });
-// returns [...]
+// returns [ ~1, ~0.886, ~1, ~1.329, ~2, ~3.323 ]
 ```
 
 
@@ -136,12 +136,12 @@ var out = mgf( data, {
 });
 /*
 	[
-		{'x':[0,]},
-		{'x':[1,]},
-		{'x':[2,]},
-		{'x':[3,]},
-		{'x':[4,]},
-		{'x':[5,]}
+		{'x':[0,~1]},
+		{'x':[1,~0.886]},
+		{'x':[2,~1]},
+		{'x':[3,~1.329]},
+		{'x':[4,~2]},
+		{'x':[5,~3.323]}
 	]
 */
 
@@ -154,35 +154,35 @@ By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/
 ``` javascript
 var t, out;
 
-t = new Int8Array( [0,1,2,3,4] );
+t = new Float32Array( [0,0.5,1.5,2,2.5] );
 
 out = mgf( t, {
 	'dtype': 'int32'
 });
-// returns Int32Array( [...] )
+// returns Int32Array( [1,0,1,1,2,3] )
 
 // Works for plain arrays, as well...
-out = mgf( [0,0.5,1,1.5,2], {
+out = mgf( [0,0.5,1,1.5,2,2.5], {
 	'dtype': 'uint8'
 });
-// returns Uint8Array( [...] )
+// returns Uint8Array( [1,0,1,1,2,3] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
 
 ``` javascript
-var bool,
 	mat,
 	out,
 	t,
+var bool,
 	i;
 
-t = [ 0, 0.5, 1, 1.5, 2 ];
+t = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 
 out = mgf( t, {
 	'copy': false
 });
-// returns [...]
+// returns [ ~1, ~0.886, ~1, ~1.329, ~2, ~3.323 ]
 
 bool = ( t === out );
 // returns true
@@ -202,9 +202,9 @@ out = mgf( mat, {
 	'copy': false
 });
 /*
-	[
-
-	   ]
+	[ ~1 ~0.886
+	  ~1 ~1.329
+	  ~2 ~3.323]
 */
 
 bool = ( mat === out );
